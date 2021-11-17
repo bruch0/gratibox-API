@@ -7,10 +7,9 @@ const createUser = async () => {
   const hash = hashSync(password, 10);
   try {
     const result = await connection.query(
-      `
-		  INSERT INTO
-			users (name, email, password)
-			VALUES ($1, $2, $3) RETURNING email`,
+      `INSERT INTO
+		users (name, email, password)
+		VALUES ($1, $2, $3) RETURNING email`,
       [fakerbr.name.findName(), fakerbr.internet.email(), hash]
     );
 
