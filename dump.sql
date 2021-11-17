@@ -2,9 +2,9 @@ CREATE TABLE "users" (
 	"id" serial NOT NULL,
 	"subscription_id" integer,
 	"name" varchar(255) NOT NULL,
-	"email" varchar(255) NOT NULL,
-	"password" varchar(36) NOT NULL,
 	"subscription_date" varchar(50),
+	"email" varchar(255) NOT NULL UNIQUE,
+	"password" varchar(255) NOT NULL,
 	CONSTRAINT "users_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -31,7 +31,8 @@ CREATE TABLE "deliverys" (
 
 CREATE TABLE "ratings" (
 	"id" serial NOT NULL,
-	"name" varchar(20) NOT NULL
+	"name" varchar(20) NOT NULL,
+	CONSTRAINT "ratings_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
