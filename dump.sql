@@ -6,8 +6,7 @@ CREATE TABLE "users" (
 	"email" varchar(255) NOT NULL UNIQUE,
 	"password" varchar(255) NOT NULL,
 	"zipcode" varchar(8),
-	"street" varchar(255),
-	"city_id" integer,
+	"number" integer,
 	CONSTRAINT "users_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -58,23 +57,6 @@ CREATE TABLE "items" (
   OIDS=FALSE
 );
 
-CREATE TABLE "cities" (
-	"id" serial NOT NULL,
-	"name" varchar(255) NOT NULL,
-	"state_id" integer NOT NULL,
-	CONSTRAINT "cities_pk" PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
-CREATE TABLE "states" (
-	"id" serial NOT NULL,
-	"name" varchar(255) NOT NULL,
-	CONSTRAINT "states_pk" PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
 CREATE TABLE "delivery_dates" (
 	"id" serial NOT NULL UNIQUE,
 	"date" varchar(2) NOT NULL,
@@ -94,7 +76,6 @@ CREATE TABLE "sessions" (
 
 
 ALTER TABLE "users" ADD CONSTRAINT "users_fk0" FOREIGN KEY ("subscription_id") REFERENCES "subscriptions"("id");
-ALTER TABLE "users" ADD CONSTRAINT "users_fk1" FOREIGN KEY ("city_id") REFERENCES "cities"("id");
 
 ALTER TABLE "deliverys" ADD CONSTRAINT "deliverys_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "deliverys" ADD CONSTRAINT "deliverys_fk1" FOREIGN KEY ("rating_id") REFERENCES "ratings"("id");
@@ -102,7 +83,5 @@ ALTER TABLE "deliverys" ADD CONSTRAINT "deliverys_fk2" FOREIGN KEY ("date_id") R
 
 ALTER TABLE "requested_items" ADD CONSTRAINT "requested_items_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "requested_items" ADD CONSTRAINT "requested_items_fk1" FOREIGN KEY ("item_id") REFERENCES "items"("id");
-
-ALTER TABLE "cities" ADD CONSTRAINT "cities_fk0" FOREIGN KEY ("state_id") REFERENCES "states"("id");
 
 ALTER TABLE "sessions" ADD CONSTRAINT "sessions_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
