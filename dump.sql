@@ -25,8 +25,9 @@ CREATE TABLE "deliverys" (
 	"id" serial NOT NULL,
 	"user_id" integer NOT NULL,
 	"scheduled_date" varchar(100) NOT NULL,
-	"rating_id" integer NOT NULL,
-	"rating_comment" varchar(255) NOT NULL,
+	"rating_id" integer,
+	"rating_comment" varchar(255),
+	"date_id" integer NOT NULL,
 	CONSTRAINT "deliverys_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -74,11 +75,21 @@ CREATE TABLE "states" (
   OIDS=FALSE
 );
 
+CREATE TABLE "delivery_dates" (
+	"id" serial NOT NULL UNIQUE,
+	"date" varchar(2) NOT NULL UNIQUE,
+	CONSTRAINT "delivery_dates_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
 ALTER TABLE "users" ADD CONSTRAINT "users_fk0" FOREIGN KEY ("subscription_id") REFERENCES "subscriptions"("id");
 ALTER TABLE "users" ADD CONSTRAINT "users_fk1" FOREIGN KEY ("city_id") REFERENCES "cities"("id");
 
 ALTER TABLE "deliverys" ADD CONSTRAINT "deliverys_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "deliverys" ADD CONSTRAINT "deliverys_fk1" FOREIGN KEY ("rating_id") REFERENCES "ratings"("id");
+ALTER TABLE "deliverys" ADD CONSTRAINT "deliverys_fk2" FOREIGN KEY ("date_id") REFERENCES "delivery_dates"("id");
 
 ALTER TABLE "requested_items" ADD CONSTRAINT "requested_items_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "requested_items" ADD CONSTRAINT "requested_items_fk1" FOREIGN KEY ("item_id") REFERENCES "items"("id");
