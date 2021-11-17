@@ -2,6 +2,8 @@ CREATE TABLE "users" (
 	"id" serial NOT NULL,
 	"subscription_id" integer,
 	"name" varchar(255) NOT NULL,
+	"email" varchar(255) NOT NULL,
+	"password" varchar(36) NOT NULL,
 	"subscription_date" varchar(50),
 	CONSTRAINT "users_pk" PRIMARY KEY ("id")
 ) WITH (
