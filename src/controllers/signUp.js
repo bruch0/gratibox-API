@@ -1,4 +1,4 @@
-import connection from '../database/database';
+import connection from '../database/database.js';
 import signUpSchema from '../schemas/signUpSchema.js';
 
 const signUp = async (req, res) => {
