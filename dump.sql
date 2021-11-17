@@ -5,9 +5,9 @@ CREATE TABLE "users" (
 	"subscription_date" varchar(50),
 	"email" varchar(255) NOT NULL UNIQUE,
 	"password" varchar(255) NOT NULL,
-	"zipcode" varchar(8) NOT NULL,
-	"street" varchar(255) NOT NULL,
-	"city_id" integer NOT NULL,
+	"zipcode" varchar(8),
+	"street" varchar(255),
+	"city_id" integer,
 	CONSTRAINT "users_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
