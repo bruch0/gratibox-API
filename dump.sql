@@ -5,6 +5,9 @@ CREATE TABLE "users" (
 	"subscription_date" varchar(50),
 	"email" varchar(255) NOT NULL UNIQUE,
 	"password" varchar(255) NOT NULL,
+	"zipcode" varchar(8) NOT NULL,
+	"street" varchar(255) NOT NULL,
+	"city_id" integer NOT NULL,
 	CONSTRAINT "users_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -54,11 +57,30 @@ CREATE TABLE "items" (
   OIDS=FALSE
 );
 
+CREATE TABLE "cities" (
+	"id" serial NOT NULL,
+	"name" varchar(255) NOT NULL,
+	"state_id" integer NOT NULL,
+	CONSTRAINT "cities_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+CREATE TABLE "states" (
+	"id" serial NOT NULL,
+	"name" varchar(255) NOT NULL,
+	CONSTRAINT "states_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
 
 ALTER TABLE "users" ADD CONSTRAINT "users_fk0" FOREIGN KEY ("subscription_id") REFERENCES "subscriptions"("id");
+ALTER TABLE "users" ADD CONSTRAINT "users_fk1" FOREIGN KEY ("city_id") REFERENCES "cities"("id");
 
 ALTER TABLE "deliverys" ADD CONSTRAINT "deliverys_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "deliverys" ADD CONSTRAINT "deliverys_fk1" FOREIGN KEY ("rating_id") REFERENCES "ratings"("id");
 
 ALTER TABLE "requested_items" ADD CONSTRAINT "requested_items_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "requested_items" ADD CONSTRAINT "requested_items_fk1" FOREIGN KEY ("item_id") REFERENCES "items"("id");
+
+ALTER TABLE "cities" ADD CONSTRAINT "cities_fk0" FOREIGN KEY ("state_id") REFERENCES "states"("id");
