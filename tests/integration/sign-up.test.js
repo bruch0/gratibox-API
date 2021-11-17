@@ -4,6 +4,7 @@ import fakerbr from 'faker-br';
 import app from '../../src/app.js';
 import clearUsers from '../utils/clearUsers.js';
 
+beforeAll(clearUsers);
 afterAll(clearUsers);
 
 const request = supertest(app);
@@ -98,14 +99,12 @@ describe('post sign-up', () => {
   });
 
   it('should return 201 when sending validBody', async () => {
-    const invalidBody = {
+    const validBody = {
       name: fakerbr.name.findName(),
       email: fakerbr.internet.email(),
       password: fakerbr.internet.password(8),
     };
-    const result = await request.post('/sign-up').send(invalidBody);
+    const result = await request.post('/sign-up').send(validBody);
     expect(result.status).toEqual(201);
   });
 });
-
-fakerbr.name.findName();
