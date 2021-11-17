@@ -8,7 +8,7 @@ const signUp = async (req, res) => {
     return res.sendStatus(400);
   }
 
-  const validation = signUpSchema.validate({ name, email, password });
+  const validation = signUpSchema.validate(req.body);
 
   if (validation.error) {
     return res.sendStatus(400);
