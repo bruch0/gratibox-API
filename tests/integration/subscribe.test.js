@@ -1,6 +1,5 @@
 import '../../src/setup.js';
 import supertest from 'supertest';
-import fakerbr from 'faker-br';
 import faker from 'faker';
 import RandExp from 'randexp';
 import app from '../../src/app.js';
@@ -29,10 +28,9 @@ describe('post subscribe', () => {
     const validBody = {
       plan: faker.random.arrayElement(['monthly', 'weekly']),
       deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      adress: faker.address.streetName(),
+      itemsWanted: [faker.random.arrayElement(['1', '2', '3'])],
       zipcode: randZipcode.gen(),
-      city: fakerbr.address.city(),
+      number: faker.datatype.number(),
     };
     const result = await request.post('/subscribe').send(validBody);
     expect(result.status).toEqual(401);
@@ -42,10 +40,9 @@ describe('post subscribe', () => {
     const validBody = {
       plan: faker.random.arrayElement(['monthly', 'weekly']),
       deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      adress: faker.address.streetName(),
+      itemsWanted: [faker.random.arrayElement(['1', '2', '3'])],
       zipcode: randZipcode.gen(),
-      city: fakerbr.address.city(),
+      number: faker.datatype.number(),
     };
     const token = await createToken();
     const result = await request
@@ -66,10 +63,9 @@ describe('post subscribe', () => {
   it('should return 400 when not sending plan', async () => {
     const invalidBody = {
       deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      adress: faker.address.streetName(),
+      itemsWanted: [faker.random.arrayElement(['1', '2', '3'])],
       zipcode: randZipcode.gen(),
-      city: fakerbr.address.city(),
+      number: faker.datatype.number(),
     };
     const { token } = await createToken();
     const result = await request
@@ -83,10 +79,9 @@ describe('post subscribe', () => {
     const invalidBody = {
       plan: '',
       deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      adress: faker.address.streetName(),
+      itemsWanted: [faker.random.arrayElement(['1', '2', '3'])],
       zipcode: randZipcode.gen(),
-      city: fakerbr.address.city(),
+      number: faker.datatype.number(),
     };
     const { token } = await createToken();
     const result = await request
@@ -99,10 +94,9 @@ describe('post subscribe', () => {
   it('should return 400 when not sending deliveryDate', async () => {
     const invalidBody = {
       plan: faker.random.arrayElement(['monthly', 'weekly']),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      adress: faker.address.streetName(),
+      itemsWanted: [faker.random.arrayElement(['1', '2', '3'])],
       zipcode: randZipcode.gen(),
-      city: fakerbr.address.city(),
+      number: faker.datatype.number(),
     };
     const { token } = await createToken();
     const result = await request
@@ -116,10 +110,9 @@ describe('post subscribe', () => {
     const invalidBody = {
       plan: faker.random.arrayElement(['monthly', 'weekly']),
       deliveryDate: '',
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      adress: faker.address.streetName(),
+      itemsWanted: [faker.random.arrayElement(['1', '2', '3'])],
       zipcode: randZipcode.gen(),
-      city: fakerbr.address.city(),
+      number: faker.datatype.number(),
     };
     const { token } = await createToken();
     const result = await request
@@ -133,9 +126,8 @@ describe('post subscribe', () => {
     const invalidBody = {
       plan: faker.random.arrayElement(['monthly', 'weekly']),
       deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      adress: faker.address.streetName(),
       zipcode: randZipcode.gen(),
-      city: fakerbr.address.city(),
+      number: faker.datatype.number(),
     };
     const { token } = await createToken();
     const result = await request
@@ -150,42 +142,8 @@ describe('post subscribe', () => {
       plan: faker.random.arrayElement(['monthly', 'weekly']),
       deliveryDate: faker.random.arrayElement(['01', '10', '20']),
       itemsWanted: '',
-      adress: faker.address.streetName(),
       zipcode: randZipcode.gen(),
-      city: fakerbr.address.city(),
-    };
-    const { token } = await createToken();
-    const result = await request
-      .post('/subscribe')
-      .set('x-access-token', token)
-      .send(invalidBody);
-    expect(result.status).toEqual(400);
-  });
-
-  it('should return 400 when not sending adress', async () => {
-    const invalidBody = {
-      plan: faker.random.arrayElement(['monthly', 'weekly']),
-      deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      zipcode: randZipcode.gen(),
-      city: fakerbr.address.city(),
-    };
-    const { token } = await createToken();
-    const result = await request
-      .post('/subscribe')
-      .set('x-access-token', token)
-      .send(invalidBody);
-    expect(result.status).toEqual(400);
-  });
-
-  it('should return 400 when sending empty adress', async () => {
-    const invalidBody = {
-      plan: faker.random.arrayElement(['monthly', 'weekly']),
-      deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      adress: '',
-      zipcode: randZipcode.gen(),
-      city: fakerbr.address.city(),
+      number: faker.datatype.number(),
     };
     const { token } = await createToken();
     const result = await request
@@ -199,9 +157,8 @@ describe('post subscribe', () => {
     const invalidBody = {
       plan: faker.random.arrayElement(['monthly', 'weekly']),
       deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      adress: faker.address.streetName(),
-      city: fakerbr.address.city(),
+      itemsWanted: [faker.random.arrayElement(['1', '2', '3'])],
+      number: faker.datatype.number(),
     };
     const { token } = await createToken();
     const result = await request
@@ -215,10 +172,9 @@ describe('post subscribe', () => {
     const invalidBody = {
       plan: faker.random.arrayElement(['monthly', 'weekly']),
       deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      adress: faker.address.streetName(),
+      itemsWanted: [faker.random.arrayElement(['1', '2', '3'])],
       zipcode: '',
-      city: fakerbr.address.city(),
+      number: faker.datatype.number(),
     };
     const { token } = await createToken();
     const result = await request
@@ -228,12 +184,11 @@ describe('post subscribe', () => {
     expect(result.status).toEqual(400);
   });
 
-  it('should return 400 when not sending city', async () => {
+  it('should return 400 when not sending adress number', async () => {
     const invalidBody = {
       plan: faker.random.arrayElement(['monthly', 'weekly']),
       deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      adress: faker.address.streetName(),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
+      itemsWanted: [faker.random.arrayElement(['1', '2', '3'])],
       zipcode: randZipcode.gen(),
     };
     const { token } = await createToken();
@@ -244,14 +199,13 @@ describe('post subscribe', () => {
     expect(result.status).toEqual(400);
   });
 
-  it('should return 400 when sending empty city', async () => {
+  it('should return 400 when sending empty adress number', async () => {
     const invalidBody = {
       plan: faker.random.arrayElement(['monthly', 'weekly']),
       deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      adress: faker.address.streetName(),
+      itemsWanted: [faker.random.arrayElement(['1', '2', '3'])],
+      number: '',
       zipcode: randZipcode.gen(),
-      city: '',
     };
     const { token } = await createToken();
     const result = await request
@@ -265,26 +219,15 @@ describe('post subscribe', () => {
     const validBody = {
       plan: faker.random.arrayElement(['monthly', 'weekly']),
       deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-      itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-      adress: faker.address.streetName(),
+      itemsWanted: [faker.random.arrayElement(['1', '2', '3'])],
       zipcode: randZipcode.gen(),
-      city: fakerbr.address.city(),
+      number: faker.datatype.number(),
     };
     const { token } = await createToken();
     const result = await request
       .post('/subscribe')
       .set('x-access-token', token)
       .send(validBody);
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
   });
 });
-
-// const invalidBody = {
-//   userId: '',
-//   plan: faker.random.arrayElement(['monthly', 'weekly']),
-//   deliveryDate: faker.random.arrayElement(['01', '10', '20']),
-//   itemsWanted: faker.random.arrayElement(['1', '2', '3']),
-//   adress: faker.address.streetName(),
-//   zipcode: randZipcode.gen(),
-//   city: fakerbr.address.city(),
-// };
