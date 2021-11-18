@@ -11,5 +11,6 @@ module.exports = {
   },
   rules: {
     'import/extensions': ['error', { js: 'ignorePackages' }],
+    'no-await-in-loop': 'ignore',
   },
 };
