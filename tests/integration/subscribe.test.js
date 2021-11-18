@@ -10,7 +10,7 @@ beforeAll(async () => await clearUsers());
 
 const request = supertest(app);
 
-describe('post subscribe', () => {
+describe('POST /subscribe', () => {
   const randZipcode = new RandExp(/[0-9]{8}/);
   it('should return 401 when not sending jwt', async () => {
     const result = await request.post('/subscribe');
@@ -252,7 +252,7 @@ describe('post subscribe', () => {
   });
 });
 
-describe('put subscribe', () => {
+describe('PUT /subscribe', () => {
   const randZipcode = new RandExp(/[0-9]{8}/);
   it('should return 401 when not sending jwt', async () => {
     const result = await request.put('/subscribe');
