@@ -3,7 +3,7 @@ import supertest from 'supertest';
 import faker from 'faker';
 import app from '../../src/app.js';
 import clearUsers from '../utils/clearUsers.js';
-import createDelivery from '../utils/createDelivery.js';
+import createDelivery from '../factories/deliveryFactory.js';
 
 beforeAll(async () => await clearUsers());
 

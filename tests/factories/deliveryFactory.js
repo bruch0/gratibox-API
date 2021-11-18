@@ -1,7 +1,7 @@
 import faker from 'faker';
 import dayjs from 'dayjs';
 import connection from '../../src/database/database.js';
-import createToken from '../factories/tokenFactory';
+import createToken from './tokenFactory';
 
 const createDelivery = async () => {
   const { token } = await createToken();

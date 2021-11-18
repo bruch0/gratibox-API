@@ -40,9 +40,12 @@ const getUserSubscription = async (req, res) => {
       [userId]
     );
     const dates = [];
-    for (let i = 2; i >= 0; i -= 1) {
-      dates.push(deliverys.rows[i].scheduled_date);
-    }
+    deliverys.rows.forEach((box) => {
+      dates.push({
+        date: box.scheduled_date,
+        id: box.id,
+      });
+    });
 
     return res.send({
       subscriptionName,
