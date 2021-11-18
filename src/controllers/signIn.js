@@ -29,18 +29,20 @@ const signIn = async (req, res) => {
     const { id } = result.rows[0];
 
     if (compareSync(password, result.rows[0].password)) {
-      const sessionId = await connection.query(
+      const session = await connection.query(
         'INSERT INTO sessions (user_id) VALUES ($1) RETURNING id',
         [id]
       );
+      const sessionId = session.rows[0].id;
 
       const jwtSecret = process.env.JWT_SECRET;
       const configurations = { expiresIn: 60 * 15 };
-      const token = jwt.sign(
-        { sessionId: sessionId.rows[0].id },
-        jwtSecret,
-        configurations
-      );
+      const token = jwt.sign({ sessionId }, jwtSecret, configurations);
+
+      await connection.query('UPDATE sessions SET token = $1 WHERE id = $2', [
+        token,
+        sessionId,
+      ]);
 
       return res.status(200).send({ token });
     }

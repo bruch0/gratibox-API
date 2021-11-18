@@ -1,7 +1,7 @@
 import connection from '../database/database.js';
 
 const getUserSubscription = async (req, res) => {
-  const { sessionId } = req;
+  const { sessionId, newToken } = req;
 
   try {
     const userSession = await connection.query(
@@ -49,6 +49,7 @@ const getUserSubscription = async (req, res) => {
       subscriptionDate: userInfo.subscription_date,
       wantedItems,
       dates,
+      newToken,
     });
   } catch {
     return res.sendStatus(500);
