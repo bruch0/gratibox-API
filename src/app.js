@@ -7,6 +7,7 @@ import authenticationJWT from './middlewares/authenticationJWT.js';
 import { subscribeUser, changeSubscription } from './controllers/subscribe.js';
 import getUserSubscription from './controllers/getUserSubscription.js';
 import getUserInfo from './controllers/getUserInfo.js';
+import registerFeedback from './controllers/feedback.js';
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(cors());
 app.use('/subscribe', authenticationJWT);
 app.use('/get-subscription', authenticationJWT);
 app.use('/user-info', authenticationJWT);
+app.use('/feedback', authenticationJWT);
 
 app.post('/sign-up', signUp);
 
@@ -26,5 +28,7 @@ app.put('/subscribe', changeSubscription);
 app.get('/get-subscription', getUserSubscription);
 
 app.get('/user-info', getUserInfo);
+
+app.post('/feedback', registerFeedback);
 
 export default app;
