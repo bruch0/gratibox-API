@@ -3,7 +3,7 @@ import feedbackSchema from '../schemas/feedbackSchema.js';
 
 const registerFeedback = async (req, res) => {
   const { boxId, feedbackId, comment } = req.body;
-  const { sessionId } = req;
+  const { sessionId, newToken } = req;
 
   if (!feedbackId || !boxId || (feedbackId === 1 && comment)) {
     return res.sendStatus(400);
@@ -38,7 +38,7 @@ const registerFeedback = async (req, res) => {
       [feedbackId, comment, boxId]
     );
 
-    return res.sendStatus(200);
+    return res.status(200).send(newToken);
   } catch {
     return res.sendStatus(500);
   }

@@ -3,6 +3,7 @@ import cors from 'cors';
 
 import signUp from './controllers/signUp.js';
 import signIn from './controllers/signIn.js';
+import persistLogin from './controllers/persistLogin.js';
 import authenticationJWT from './middlewares/authenticationJWT.js';
 import { subscribeUser, changeSubscription } from './controllers/subscribe.js';
 import getUserSubscription from './controllers/getUserSubscription.js';
@@ -20,6 +21,8 @@ app.use('/feedback', authenticationJWT);
 app.post('/sign-up', signUp);
 
 app.post('/sign-in', signIn);
+
+app.post('/persist-login', persistLogin);
 
 app.post('/subscribe', subscribeUser);
 

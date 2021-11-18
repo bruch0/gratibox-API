@@ -4,7 +4,7 @@ import subscribeSchema from '../schemas/subscribeSchema.js';
 
 const subscribeUser = async (req, res) => {
   const { plan, deliveryDate, itemsWanted, zipcode, number } = req.body;
-  const { sessionId } = req;
+  const { sessionId, newToken } = req;
 
   if (!plan || !deliveryDate || !itemsWanted || !zipcode || !number) {
     return res.sendStatus(400);
@@ -109,7 +109,7 @@ const subscribeUser = async (req, res) => {
       }
     }
 
-    return res.sendStatus(201);
+    return res.status(201).send(newToken);
   } catch {
     return res.sendStatus(500);
   }

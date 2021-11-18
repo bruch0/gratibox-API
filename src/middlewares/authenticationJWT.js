@@ -1,12 +1,23 @@
 import jwt from 'jsonwebtoken';
+import checkLastSession from '../utils/checkLastSession.js';
 
-export default async function authenticationJWT(req, res, next) {
+const authenticationJWT = async (req, res, next) => {
   const token = req.headers['x-access-token'];
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     if (err) {
-      return res.sendStatus(401);
+      const { newToken, sessionId } = await checkLastSession(token);
+      if (newToken) {
+        req.newToken = newToken;
+        req.sessionId = sessionId;
+        next();
+      } else {
+        return res.sendStatus(401);
+      }
+    } else {
+      req.sessionId = decoded.sessionId;
+      return next();
     }
-    req.sessionId = decoded.sessionId;
-    return next();
   });
-}
+};
+
+export default authenticationJWT;
