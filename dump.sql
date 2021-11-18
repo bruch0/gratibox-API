@@ -27,6 +27,7 @@ CREATE TABLE "deliverys" (
 	"rating_id" integer,
 	"rating_comment" varchar(255),
 	"date_id" integer NOT NULL,
+	"delivered" varchar(3),
 	CONSTRAINT "deliverys_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -67,7 +68,7 @@ CREATE TABLE "delivery_dates" (
 
 CREATE TABLE "sessions" (
 	"id" serial NOT NULL,
-	"token" varchar(255),
+	"token" varchar(255) NOT NULL,
 	"user_id" integer NOT NULL,
 	CONSTRAINT "sessions_pk" PRIMARY KEY ("id")
 ) WITH (
@@ -99,3 +100,6 @@ INSERT INTO delivery_dates (date) VALUES ('friday');
 
 INSERT INTO subscriptions (name) VALUES ('monthly');
 INSERT INTO subscriptions (name) VALUES ('weekly');
+
+INSERT INTO ratings (name) VALUES ('positive');
+INSERT INTO ratings (name) VALUES ('negative');
