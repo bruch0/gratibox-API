@@ -8,8 +8,8 @@ beforeAll(async () => await clearUsers());
 
 const request = supertest(app);
 
-describe('post sign-in', () => {
-  it('should return 401 when not sending token via', async () => {
+describe('GET /get-subscription', () => {
+  it('should return 401 when not sending token', async () => {
     const result = await request.get('/get-subscription');
 
     expect(result.status).toEqual(401);
