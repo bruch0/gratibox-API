@@ -68,7 +68,7 @@ CREATE TABLE "delivery_dates" (
 
 CREATE TABLE "sessions" (
 	"id" serial NOT NULL,
-	"token" varchar(255) NOT NULL,
+	"token" varchar(255),
 	"user_id" integer NOT NULL,
 	CONSTRAINT "sessions_pk" PRIMARY KEY ("id")
 ) WITH (
