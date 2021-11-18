@@ -59,7 +59,7 @@ CREATE TABLE "items" (
 
 CREATE TABLE "delivery_dates" (
 	"id" serial NOT NULL UNIQUE,
-	"date" varchar(2) NOT NULL,
+	"date" varchar(10) NOT NULL,
 	CONSTRAINT "delivery_dates_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -67,7 +67,7 @@ CREATE TABLE "delivery_dates" (
 
 CREATE TABLE "sessions" (
 	"id" serial NOT NULL,
-	"token" varchar(255) NOT NULL,
+	"token" varchar(255),
 	"user_id" integer NOT NULL,
 	CONSTRAINT "sessions_pk" PRIMARY KEY ("id")
 ) WITH (
@@ -85,3 +85,17 @@ ALTER TABLE "requested_items" ADD CONSTRAINT "requested_items_fk0" FOREIGN KEY (
 ALTER TABLE "requested_items" ADD CONSTRAINT "requested_items_fk1" FOREIGN KEY ("item_id") REFERENCES "items"("id");
 
 ALTER TABLE "sessions" ADD CONSTRAINT "sessions_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
+
+INSERT INTO items (name) VALUES ('Chá');
+INSERT INTO items (name) VALUES ('Produtos orgânicos');
+INSERT INTO items (name) VALUES ('Incensos');
+
+INSERT INTO delivery_dates (date) VALUES ('01');
+INSERT INTO delivery_dates (date) VALUES ('10');
+INSERT INTO delivery_dates (date) VALUES ('20');
+INSERT INTO delivery_dates (date) VALUES ('monday');
+INSERT INTO delivery_dates (date) VALUES ('wednesday');
+INSERT INTO delivery_dates (date) VALUES ('friday');
+
+INSERT INTO subscriptions (name) VALUES ('monthly');
+INSERT INTO subscriptions (name) VALUES ('weekly');
