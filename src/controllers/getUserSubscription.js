@@ -4,17 +4,17 @@ const getUserSubscription = async (req, res) => {
   const { sessionId } = req;
 
   try {
-    const user = await connection.query(
+    const userSession = await connection.query(
       'SELECT * FROM sessions WHERE id = $1',
       [sessionId]
     );
-    const userId = user.rows[0].user_id;
+    const userId = userSession.rows[0].user_id;
 
-    const result = await connection.query('SELECT * FROM users WHERE id = $1', [
+    const user = await connection.query('SELECT * FROM users WHERE id = $1', [
       userId,
     ]);
 
-    const subscriptionId = result.rows[0].subscription_id;
+    const subscriptionId = user.rows[0].subscription_id;
 
     if (!subscriptionId) {
       return res.send({ subscriptionId });

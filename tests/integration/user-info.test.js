@@ -8,9 +8,9 @@ beforeAll(async () => await clearUsers());
 
 const request = supertest(app);
 
-describe('GET /get-subscription', () => {
+describe('GET /user-info', () => {
   it('should return 401 when not sending token', async () => {
-    const result = await request.get('/get-subscription');
+    const result = await request.get('/user-info');
 
     expect(result.status).toEqual(401);
   });
@@ -18,20 +18,16 @@ describe('GET /get-subscription', () => {
   it('should return 401 when not sending token via x-access-token', async () => {
     const { token } = await createToken();
 
-    const result = await request
-      .get('/get-subscription')
-      .set('Authorization', token);
+    const result = await request.get('/user-info').set('Authorization', token);
 
     expect(result.status).toEqual(401);
   });
 
-  it('should return 200 when sending token via x-access-token', async () => {
+  it('should return 401 when sending token via x-access-token, but has no subscription', async () => {
     const { token } = await createToken();
 
-    const result = await request
-      .get('/get-subscription')
-      .set('x-access-token', token);
+    const result = await request.get('/user-info').set('x-access-token', token);
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(401);
   });
 });

@@ -8,7 +8,7 @@ beforeAll(async () => await clearUsers());
 
 const request = supertest(app);
 
-describe('post sign-up', () => {
+describe('POST /sign-up', () => {
   it('should return 400 when not sending body', async () => {
     const result = await request.post('/sign-up');
     expect(result.status).toEqual(400);
