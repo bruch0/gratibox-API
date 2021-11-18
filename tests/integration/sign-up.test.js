@@ -4,8 +4,8 @@ import fakerbr from 'faker-br';
 import app from '../../src/app.js';
 import clearUsers from '../utils/clearUsers.js';
 
-beforeAll(clearUsers);
-afterAll(clearUsers);
+beforeAll(async () => await clearUsers());
+afterAll(async () => await clearUsers());
 
 const request = supertest(app);
 

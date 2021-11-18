@@ -6,8 +6,8 @@ import app from '../../src/app.js';
 import clearUsers from '../utils/clearUsers.js';
 import createToken from '../factories/tokenFactory.js';
 
-beforeAll(clearUsers);
-afterAll(clearUsers);
+beforeAll(async () => await clearUsers());
+afterAll(async () => await clearUsers());
 
 const request = supertest(app);
 
@@ -228,6 +228,6 @@ describe('post subscribe', () => {
       .post('/subscribe')
       .set('x-access-token', token)
       .send(validBody);
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(201);
   });
 });
