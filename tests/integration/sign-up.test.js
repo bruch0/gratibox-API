@@ -5,7 +5,6 @@ import app from '../../src/app.js';
 import clearUsers from '../utils/clearUsers.js';
 
 beforeAll(async () => await clearUsers());
-afterAll(async () => await clearUsers());
 
 const request = supertest(app);
 
