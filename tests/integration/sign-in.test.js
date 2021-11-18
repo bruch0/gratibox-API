@@ -6,7 +6,6 @@ import clearUsers from '../utils/clearUsers.js';
 import createUser from '../factories/userFactory.js';
 
 beforeAll(async () => await clearUsers());
-afterAll(async () => await clearUsers());
 
 const request = supertest(app);
 

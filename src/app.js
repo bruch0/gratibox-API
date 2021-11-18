@@ -3,7 +3,7 @@ import cors from 'cors';
 
 import signUp from './controllers/signUp.js';
 import signIn from './controllers/signIn.js';
-import subscribeUser from './controllers/subscribe.js';
+import { subscribeUser, changeSubscription } from './controllers/subscribe.js';
 import authenticationJWT from './middlewares/authenticationJWT.js';
 
 const app = express();
@@ -12,7 +12,11 @@ app.use(cors());
 app.use('/subscribe', authenticationJWT);
 
 app.post('/sign-up', signUp);
+
 app.post('/sign-in', signIn);
+
 app.post('/subscribe', subscribeUser);
+
+app.put('/subscribe', changeSubscription);
 
 export default app;
