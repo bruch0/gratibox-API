@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import connection from '../database/database.js';
 import subscribeSchema from '../schemas/subscribeSchema.js';
+import scheduleDelivery from '../utils/scheduleDelivery.js';
 
 const subscribeUser = async (req, res) => {
   const { plan, deliveryDate, itemsWanted, zipcode, number } = req.body;
@@ -50,64 +51,13 @@ const subscribeUser = async (req, res) => {
     );
 
     itemsWanted.forEach(async (item) => {
-      const teste = await connection.query('SELECT * FROM users');
       await connection.query(
         'INSERT INTO requested_items (user_id, item_id) VALUES ($1, $2)',
         [userId, item]
       );
     });
 
-    const milisecondsPerDay = 86400000;
-    const milisecondsPerWeek = 604800000;
-    const milisecondsPerMonth = 2541600000;
-
-    if (plan === 'weekly') {
-      let addDate = milisecondsPerWeek;
-      let date;
-      let deliveryScheduledCount = 0;
-      if (deliveryDate === 'monday') {
-        date = 1;
-      } else if (deliveryDate === 'wednesday') {
-        date = 3;
-      } else {
-        date = 5;
-      }
-
-      while (deliveryScheduledCount < 3) {
-        if (dayjs(dayjs() + addDate).day() !== date) {
-          addDate += milisecondsPerDay;
-        } else {
-          connection.query(
-            'INSERT INTO deliverys (user_id, scheduled_date, date_id) VALUES ($1, $2, $3)',
-            [userId, dayjs(dayjs() + addDate).format('DD/MM/YYYY'), dateId]
-          );
-          deliveryScheduledCount += 1;
-          addDate += milisecondsPerWeek;
-        }
-      }
-    } else {
-      let addDate = milisecondsPerWeek;
-      let deliveryScheduledCount = 0;
-
-      while (deliveryScheduledCount < 3) {
-        if (dayjs(dayjs() + addDate).format('DD') !== deliveryDate) {
-          addDate += milisecondsPerDay;
-        } else {
-          if (
-            dayjs(dayjs() + addDate).day() === 0 ||
-            dayjs(dayjs() + addDate).day() === 6
-          ) {
-            addDate += milisecondsPerDay;
-          }
-          connection.query(
-            'INSERT INTO deliverys (user_id, scheduled_date, date_id) VALUES ($1, $2, $3)',
-            [userId, dayjs(dayjs() + addDate).format('DD/MM/YYYY'), dateId]
-          );
-          deliveryScheduledCount += 1;
-          addDate += milisecondsPerMonth;
-        }
-      }
-    }
+    scheduleDelivery(plan, deliveryDate, userId, dateId, false, 3);
 
     return res.status(201).send(newToken);
   } catch {
@@ -163,64 +113,13 @@ const changeSubscription = async (req, res) => {
     ]);
 
     itemsWanted.forEach(async (item) => {
-      const teste = await connection.query('SELECT * FROM users');
       await connection.query(
         'INSERT INTO requested_items (user_id, item_id) VALUES ($1, $2)',
         [userId, item]
       );
     });
 
-    const milisecondsPerDay = 86400000;
-    const milisecondsPerWeek = 604800000;
-    const milisecondsPerMonth = 2541600000;
-
-    if (plan === 'weekly') {
-      let addDate = milisecondsPerWeek;
-      let date;
-      let deliveryScheduledCount = 0;
-      if (deliveryDate === 'monday') {
-        date = 1;
-      } else if (deliveryDate === 'wednesday') {
-        date = 3;
-      } else {
-        date = 5;
-      }
-
-      while (deliveryScheduledCount < 3) {
-        if (dayjs(dayjs() + addDate).day() !== date) {
-          addDate += milisecondsPerDay;
-        } else {
-          connection.query(
-            'INSERT INTO deliverys (user_id, scheduled_date, date_id) VALUES ($1, $2, $3)',
-            [userId, dayjs(dayjs() + addDate).format('DD/MM/YYYY'), dateId]
-          );
-          deliveryScheduledCount += 1;
-          addDate += milisecondsPerWeek;
-        }
-      }
-    } else {
-      let addDate = milisecondsPerWeek;
-      let deliveryScheduledCount = 0;
-
-      while (deliveryScheduledCount < 3) {
-        if (dayjs(dayjs() + addDate).format('DD') !== deliveryDate) {
-          addDate += milisecondsPerDay;
-        } else {
-          if (
-            dayjs(dayjs() + addDate).day() === 0 ||
-            dayjs(dayjs() + addDate).day() === 6
-          ) {
-            addDate += milisecondsPerDay;
-          }
-          connection.query(
-            'INSERT INTO deliverys (user_id, scheduled_date, date_id) VALUES ($1, $2, $3)',
-            [userId, dayjs(dayjs() + addDate).format('DD/MM/YYYY'), dateId]
-          );
-          deliveryScheduledCount += 1;
-          addDate += milisecondsPerMonth;
-        }
-      }
-    }
+    scheduleDelivery(plan, deliveryDate, userId, dateId, false, 3);
 
     return res.sendStatus(200);
   } catch {

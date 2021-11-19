@@ -6,10 +6,11 @@ import signIn from './controllers/signIn.js';
 import persistLogin from './controllers/persistLogin.js';
 import authenticationJWT from './middlewares/authenticationJWT.js';
 import { subscribeUser, changeSubscription } from './controllers/subscribe.js';
-import getUserSubscription from './controllers/userSubscription.js';
-import getUserInfo from './controllers/userInfo.js';
+import userSubscription from './controllers/userSubscription.js';
+import userInfo from './controllers/userInfo.js';
 import registerFeedback from './controllers/feedback.js';
-import getDeliveredBoxes from './controllers/deliveredBoxes.js';
+import deliveredBoxes from './controllers/deliveredBoxes.js';
+import updateBoxes from './controllers/updateBoxes.js';
 
 const app = express();
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use('/user-subscription', authenticationJWT);
 app.use('/user-info', authenticationJWT);
 app.use('/feedback', authenticationJWT);
 app.use('/delivered-boxes', authenticationJWT);
+app.use('/update-boxes', authenticationJWT);
 
 app.post('/sign-up', signUp);
 
@@ -30,12 +32,14 @@ app.post('/subscribe', subscribeUser);
 
 app.put('/subscribe', changeSubscription);
 
-app.get('/user-subscription', getUserSubscription);
+app.get('/user-subscription', userSubscription);
 
-app.get('/user-info', getUserInfo);
+app.get('/user-info', userInfo);
 
 app.post('/feedback', registerFeedback);
 
-app.get('/delivered-boxes', getDeliveredBoxes);
+app.get('/delivered-boxes', deliveredBoxes);
+
+app.get('/update-boxes', updateBoxes);
 
 export default app;

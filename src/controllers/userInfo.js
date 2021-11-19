@@ -1,6 +1,6 @@
 import connection from '../database/database.js';
 
-const getUserSubscription = async (req, res) => {
+const userSubscription = async (req, res) => {
   const { sessionId, newToken } = req;
 
   try {
@@ -59,4 +59,4 @@ const getUserSubscription = async (req, res) => {
   }
 };
 
-export default getUserSubscription;
+export default userSubscription;
