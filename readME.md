@@ -453,7 +453,7 @@ psql
 ```
 
 ```
-CREATE DATABASE gratibox_test
+CREATE DATABASE gratibox_test;
 ```
 
 ```
