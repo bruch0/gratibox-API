@@ -26,7 +26,7 @@ const signIn = async (req, res) => {
       return res.sendStatus(404);
     }
 
-    const { id } = result.rows[0];
+    const { id, name } = result.rows[0];
 
     if (compareSync(password, result.rows[0].password)) {
       const session = await connection.query(
@@ -44,7 +44,7 @@ const signIn = async (req, res) => {
         sessionId,
       ]);
 
-      return res.status(200).send({ token });
+      return res.status(200).send({ token, name });
     }
 
     return res.sendStatus(401);

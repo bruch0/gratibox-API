@@ -2,7 +2,10 @@ import joi from 'joi';
 
 const subscribeSchema = joi.object({
   plan: joi.string().required().valid('monthly', 'weekly'),
-  deliveryDate: joi.string().required().valid('01', '10', '20'),
+  deliveryDate: joi
+    .string()
+    .required()
+    .valid('01', '10', '20', 'monday', 'wednesday', 'friday'),
   itemsWanted: joi
     .array()
     .items(joi.number().min(1).max(3))
