@@ -87,7 +87,7 @@ POST /subscribe
 {
   plan: String, must be either "monthly" or "weekly",
   deliveryDate: String, must be "01", "10" or "20" if plan is "monthly", otherwise, must be "monday", "wednesday" or "friday",
-  itemWanted: Array, must include only numbers 1 to 3,
+  itemsWanted: Array, must include only numbers 1 to 3,
   zipcode: String, must be 8 letters long and include only numbers
   number: Number, is the house number
 }
@@ -132,7 +132,7 @@ PUT /subscribe
 {
   plan: String, must be either "monthly" or "weekly",
   deliveryDate: String, must be "01", "10" or "20" if plan is "monthly", otherwise, must be "monday", "wednesday" or "friday",
-  itemWanted: Array, must include only numbers 1 to 3,
+  itemsWanted: Array, must include only numbers 1 to 3,
   zipcode: String, must be 8 letters long and include only numbers
   number: Number, is the house number
 }
@@ -406,7 +406,7 @@ cd gratibox-API
 ```
 
 ```
-npm i
+npm i --force
 ```
 
 Create a .env.dev file and fill it using your environment variables following <a href="https://github.com/bruch0/gratibox-API/blob/main/.env.example">this example</a>
