@@ -473,7 +473,7 @@ npm run test
   
 ## Deployment 🚀
 
-<p align="center"><a  href="https://bruch0.github.io/DrivenEats/">You can check the server running on heroku here!</a></p>
+<p align="center"><a  href="https://gratibox-brucho.herokuapp.com/">You can check the server running on heroku here!</a></p>
 
 </br>
 
