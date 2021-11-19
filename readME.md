@@ -193,7 +193,7 @@ GET /user-subscription
 
 ```jsx
 {
-  subscriptionName: String, will be either 'monthly' or 'weekly',
+  subscriptionId: String, will be either 1, meaning 'monthly' or 2, meaning 'weekly',
   newToken: JWT, if needed, further explanations on persistent login section
 }
 ```
