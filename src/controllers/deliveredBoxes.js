@@ -1,6 +1,6 @@
 import connection from '../database/database.js';
 
-const getDeliveredBoxes = async (req, res) => {
+const deliveredBoxes = async (req, res) => {
   const { sessionId, newToken } = req;
 
   try {
@@ -32,4 +32,4 @@ const getDeliveredBoxes = async (req, res) => {
   }
 };
 
-export default getDeliveredBoxes;
+export default deliveredBoxes;
