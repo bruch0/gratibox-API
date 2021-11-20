@@ -352,17 +352,20 @@ GET /update-boxes
 ### Persist login
 
 ```
-GET /persist-login
+POST /persist-login
 ```
 
-#### Expected headers
+#### Expected body
 
 ```jsx
 {
-  headers: {
-    'x-access-token': JWT
-  }
+  token: JWT,
 }
+
+#### Expected headers
+
+```bash
+None
 ```
 
 #### Possible response status
