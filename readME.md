@@ -361,6 +361,7 @@ POST /persist-login
 {
   token: JWT,
 }
+```
 
 #### Expected headers
 
