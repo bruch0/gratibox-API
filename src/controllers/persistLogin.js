@@ -3,7 +3,7 @@ import checkLastSession from '../utils/checkLastSession.js';
 const persistLogin = async (req, res) => {
   const { token } = req.body;
   const { newToken } = await checkLastSession(token);
-  console.log(newToken);
+
   if (newToken) {
     return res.status(200).send(newToken);
   }
