@@ -87,7 +87,7 @@ ALTER TABLE "requested_items" ADD CONSTRAINT "requested_items_fk1" FOREIGN KEY (
 
 ALTER TABLE "sessions" ADD CONSTRAINT "sessions_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 
-INSERT INTO items (name) VALUES ('Chá');
+INSERT INTO items (name) VALUES ('Chás');
 INSERT INTO items (name) VALUES ('Produtos orgânicos');
 INSERT INTO items (name) VALUES ('Incensos');
 
