@@ -28,6 +28,10 @@ const updateBoxes = async (req, res) => {
       const aux = box.scheduled_date.split('/');
       const fixedDate = `${aux[1]}/${aux[0]}/${aux[2]}`;
       if (dayjs() > dayjs(fixedDate)) {
+        connection.query(
+          `UPDATE deliverys SET delivered = 'yes' WHERE id = $1`,
+          [box.id]
+        );
         updatesNeeded += 1;
       }
     });
